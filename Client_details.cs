@@ -21,7 +21,7 @@ namespace TJ_Lanka_PLC_PLM
         {
             loadClientData();
             New(false);
-            SearchBox(false);
+            SearchBox(true);
             BtnSubmit(false);
             BtnUpdate(false);
         }
@@ -45,7 +45,7 @@ namespace TJ_Lanka_PLC_PLM
 
         private void SearchBox(bool value)
         {
-            searchTxtBox.Enabled = value;
+            SearchBrandTxtbox.Enabled = value;
         }
 
 
@@ -63,12 +63,12 @@ namespace TJ_Lanka_PLC_PLM
         {
 
             ClientNameTxtBox.Clear();
-            CompanyTxtBox.Clear();
-            CompanyTxtBox.Clear();
+            CompanyTxtBox.ResetText();
+            CompanyTxtBox.ResetText();
             AddressTxtBox.Clear();
             ContactTxtBox.Clear();
             EmailTxtBox.Clear();
-            searchTxtBox.Clear();
+            //SearchBrandTxtbox.ResetText();
         }
 
         private void newBtn_Click(object sender, EventArgs e)
@@ -78,6 +78,7 @@ namespace TJ_Lanka_PLC_PLM
                 New(true);
                 BtnSubmit(true);
                 BtnUpdate(false);
+                SearchBox(false);
 
 
             }
@@ -97,11 +98,12 @@ namespace TJ_Lanka_PLC_PLM
                 fn.setData(query);
                 SearchBox(false);
                 loadClientData();
+                Refresh();
                 ClearAll();
 
-                /*Order_details od = new Order_details();
+                NewOrder od = new NewOrder();
                 this.Hide();
-                od.Show();*/
+                od.Show();
 
             }
 
@@ -111,83 +113,36 @@ namespace TJ_Lanka_PLC_PLM
             }
         }
 
-        private void editBtn_Click(object sender, EventArgs e)
-        {
-            New(false);
-            SearchBox(true);
-            BtnSubmit(false);
-            BtnUpdate(true);
-
-            MessageBox.Show("Type the client name in the Text Box to edit details.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            query = "select * from client_details where client_name like '" + searchTxtBox.Text + "%'";
-            DataSet ds = fn.getData(query);
-            DGVclient.DataSource = ds.Tables[0];
-            ClearAll();
-        }
-
-        int ClientId;
-        private void DGVclient_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-            New(true);
-            ClientId = int.Parse(DGVclient.Rows[e.RowIndex].Cells[0].Value.ToString());
-            String client_name = DGVclient.Rows[e.RowIndex].Cells[1].Value.ToString();
-            String company = DGVclient.Rows[e.RowIndex].Cells[2].Value.ToString();
-            //int contact = int.Parse(DGVclient.Rows[e.RowIndex].Cells[3].Value.ToString());
-            String contact = DGVclient.Rows[e.RowIndex].Cells[3].Value.ToString();
-            String address = DGVclient.Rows[e.RowIndex].Cells[4].Value.ToString();
-            String email = DGVclient.Rows[e.RowIndex].Cells[5].Value.ToString();
-
-
-            ClientNameTxtBox.Text = client_name;
-            CompanyTxtBox.Text = company;
-            //priceTextBox.Text = price.ToString();
-            ContactTxtBox.Text = contact;
-            AddressTxtBox.Text = address;
-            EmailTxtBox.Text = email;
-
-
-
-
-        }
-
-        private void searchTxtBox_TextChanged(object sender, EventArgs e)
-        {
-            query = "select * from client_details where client_name like '" + searchTxtBox.Text + "%'";
-            DataSet ds = fn.getData(query);
-            DGVclient.DataSource = ds.Tables[0];
-        }
-
         private void updateBtn_Click(object sender, EventArgs e)
         {
 
             query = "update client_details set company = '" + CompanyTxtBox.Text + "', contact = '" + ContactTxtBox.Text + "', address = '" + AddressTxtBox.Text + "', email = '" + EmailTxtBox.Text + "', client_name= '" + ClientNameTxtBox.Text + "' where client_id= " + ClientId + "";
             fn.setData(query);
             loadClientData();
-            ClearAll();
-        }
-
-        private void deleteBtn_Click(object sender, EventArgs e)
-        {
             New(false);
             SearchBox(true);
             BtnSubmit(false);
             BtnUpdate(false);
-
-
-            MessageBox.Show("Click on the row that you want to remove client", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+            ClearAll();
         }
 
         private void deleteClientToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!this.DGVclient.Rows[this.rowIndex].IsNewRow)
             {
-                this.DGVclient.Rows.RemoveAt(this.rowIndex);
-                query = "delete from client_details where client_id =" + ClientId + "";
-                fn.setData(query);
-                loadClientData();
+                DialogResult dr = MessageBox.Show("Are you sure to delete Client?", "Confirmation", MessageBoxButtons.YesNo);
+                if (dr == DialogResult.Yes)
+                {
+                    this.DGVclient.Rows.RemoveAt(this.rowIndex);
+                    query = "delete from client_details where client_id =" + ClientId + "";
+                    fn.setData(query);
+                    loadClientData();
+                }
+                else if (DialogResult == DialogResult.No)
+                {
+                    loadClientData();
+                }
+
             }
         }
 
@@ -205,12 +160,57 @@ namespace TJ_Lanka_PLC_PLM
             }
         }
 
+        int ClientId;
+        private void editClientToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SearchBox(true);
+            BtnSubmit(false);
+            BtnUpdate(false);
+
+            if (!this.DGVclient.Rows[this.rowIndex].IsNewRow)
+            {
+                BtnUpdate(true);
+                New(true);
+                ClientId = int.Parse(DGVclient.Rows[this.rowIndex].Cells[0].Value.ToString());
+                String client_name = DGVclient.Rows[this.rowIndex].Cells[1].Value.ToString();
+                String company = DGVclient.Rows[this.rowIndex].Cells[2].Value.ToString();
+                //int contact = int.Parse(DGVclient.Rows[e.RowIndex].Cells[3].Value.ToString());
+                String contact = DGVclient.Rows[this.rowIndex].Cells[3].Value.ToString();
+                String address = DGVclient.Rows[this.rowIndex].Cells[4].Value.ToString();
+                String email = DGVclient.Rows[this.rowIndex].Cells[5].Value.ToString();
+
+
+                ClientNameTxtBox.Text = client_name;
+                CompanyTxtBox.Text = company;
+                //priceTextBox.Text = price.ToString();
+                ContactTxtBox.Text = contact;
+                AddressTxtBox.Text = address;
+                EmailTxtBox.Text = email;
+
+
+                SearchBox(false);
+            }
+
+        }
+
+        private void SearchBrandTxtbox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            query = "select * from client_details where company like '" + SearchBrandTxtbox.Text + "%'";
+            DataSet ds = fn.getData(query);
+            DGVclient.DataSource = ds.Tables[0];
+        }
+
         private void button5_Click(object sender, EventArgs e)
         {
             Order_details fm = new Order_details();
             this.Hide();
             fm.Show();
 
+        }
+
+        private void ExitBtn_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
