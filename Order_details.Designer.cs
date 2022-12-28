@@ -325,7 +325,6 @@
             this.totalTxtBox.Name = "totalTxtBox";
             this.totalTxtBox.Size = new System.Drawing.Size(141, 20);
             this.totalTxtBox.TabIndex = 31;
-            this.totalTxtBox.TextChanged += new System.EventHandler(this.totalTxtBox_TextChanged);
             // 
             // total
             // 
