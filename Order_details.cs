@@ -46,10 +46,19 @@ namespace TJ_Lanka_PLC_PLM
                 loadOrderData();
                 ClearAll();
 
-                Int64 Quantity = Int64.Parse(UnitPriceTxtBox.Text);
-                Int64 UnitPrice = Int64.Parse(UnitPriceTxtBox.Text);
-                float Discount = float.Parse(DiscountTxtBox.Text);
-                totalTxtBox.Text = ((Quantity * UnitPrice) * (Discount * 100)).ToString();
+                double unitPrice = double.Parse(DGVorder.Rows[this.rowIndex].Cells[6].Value.ToString());
+                double quantity = double.Parse(DGVorder.Rows[this.rowIndex].Cells[7].Value.ToString());
+                double discount = double.Parse(DGVorder.Rows[this.rowIndex].Cells[8].Value.ToString());
+
+
+                double total = quantity * unitPrice;
+                double netDiscount = (total / 100) * discount;
+                totalTxtBox.Text = (total - netDiscount).ToString();
+
+                query = "insert into Order_details (total) values ('" + totalTxtBox.Text + "')";
+                fn.setData(query);
+                loadOrderData();
+                ClearAll();
 
                 New(false);
                 SubmitButton(false);
@@ -75,6 +84,7 @@ namespace TJ_Lanka_PLC_PLM
             UnitPriceTxtBox.Clear();
             QuantityTxtBox.Clear();
             DiscountTxtBox.Clear();
+            totalTxtBox.Clear();
 
         }
 
@@ -105,6 +115,7 @@ namespace TJ_Lanka_PLC_PLM
             UnitPriceTxtBox.Enabled = value;
             QuantityTxtBox.Enabled = value;
             DiscountTxtBox.Enabled = value;
+            totalTxtBox.Enabled = value;
 
         }
         private void SubmitButton(bool value)
@@ -192,7 +203,7 @@ namespace TJ_Lanka_PLC_PLM
 
         private void btnUpdateOrder_Click(object sender, EventArgs e)
         {
-            query = "update Order_details set order_priority = '" + OrderPriorityTxtBox.Text + "', order_category = '" + OrderCategoryDropDown.Text + "', due_date = '" + DueDateBox.Text + "', unit_price = '" + UnitPriceTxtBox.Text + "', quantity= '" + QuantityTxtBox.Text + "', discount= '" + DiscountTxtBox.Text + "' where order_id= " + OrderId + "";
+            query = "update Order_details set order_priority = '" + OrderPriorityTxtBox.Text + "', order_category = '" + OrderCategoryDropDown.Text + "', due_date = '" + DueDateBox.Text + "', unit_price = '" + UnitPriceTxtBox.Text + "', quantity= '" + QuantityTxtBox.Text + "', discount= '" + DiscountTxtBox.Text + "', total= '" + totalTxtBox.Text + "' where order_id= " + OrderId + "";
             fn.setData(query);
             loadOrderData();
             ClearAll();
@@ -212,9 +223,10 @@ namespace TJ_Lanka_PLC_PLM
                 String orderCategory = DGVorder.Rows[this.rowIndex].Cells[3].Value.ToString();
                 String brand = DGVorder.Rows[this.rowIndex].Cells[4].Value.ToString();
                 String dueDate = DGVorder.Rows[this.rowIndex].Cells[5].Value.ToString();
-                int unitPrice = int.Parse(DGVorder.Rows[this.rowIndex].Cells[6].Value.ToString());
-                int quantity = int.Parse(DGVorder.Rows[this.rowIndex].Cells[7].Value.ToString());
-                float discount = float.Parse(DGVorder.Rows[this.rowIndex].Cells[8].Value.ToString());
+                double unitPrice = double.Parse(DGVorder.Rows[this.rowIndex].Cells[6].Value.ToString());
+                double quantity = double.Parse(DGVorder.Rows[this.rowIndex].Cells[7].Value.ToString());
+                double discount = double.Parse(DGVorder.Rows[this.rowIndex].Cells[8].Value.ToString());
+                double total = double.Parse(DGVorder.Rows[this.rowIndex].Cells[9].Value.ToString());
 
                 clientIdTxtBox.Text = clientID.ToString();
                 brandDropDown.Text = brand;
@@ -225,11 +237,8 @@ namespace TJ_Lanka_PLC_PLM
                 UnitPriceTxtBox.Text = unitPrice.ToString();
                 QuantityTxtBox.Text = quantity.ToString();
                 DiscountTxtBox.Text = discount.ToString();
+                totalTxtBox.Text = total.ToString();
 
-                Int64 Quantity = Int64.Parse(UnitPriceTxtBox.Text);
-                Int64 UnitPrice = Int64.Parse(UnitPriceTxtBox.Text);
-                float Discount = float.Parse(DiscountTxtBox.Text);
-                totalTxtBox.Text = ((Quantity * UnitPrice) * (Discount * 100)).ToString();
 
                 UpdateButton(true);
                 BrandDropDown(false);
@@ -237,10 +246,7 @@ namespace TJ_Lanka_PLC_PLM
             }
         }
 
-        private void totalTxtBox_TextChanged(object sender, EventArgs e)
-        {
 
-        }
     }
 
 }
