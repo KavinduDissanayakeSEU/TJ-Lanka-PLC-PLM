@@ -40,22 +40,15 @@ namespace TJ_Lanka_PLC_PLM
 
             if (OrderPriorityTxtBox.Text != "" && OrderCategoryDropDown.Text != "" && DueDateBox.Text != "" && UnitPriceTxtBox.Text != "" && QuantityTxtBox.Text != "" && DiscountTxtBox.Text != "")
             {
-
-                query = "insert into Order_details (client_id,order_priority,order_category,brand,due_date,unit_price,quantity,discount) values ('" + clientIdTxtBox.Text + "','" + OrderPriorityTxtBox.Text + "','" + OrderCategoryDropDown.Text + "','" + brandDropDown.Text + "','" + DueDateBox.Value + "','" + UnitPriceTxtBox.Text + "','" + QuantityTxtBox.Text + "','" + DiscountTxtBox.Text + "')";
-                fn.setData(query);
-                loadOrderData();
-                ClearAll();
-
-                double unitPrice = double.Parse(DGVorder.Rows[this.rowIndex].Cells[6].Value.ToString());
-                double quantity = double.Parse(DGVorder.Rows[this.rowIndex].Cells[7].Value.ToString());
-                double discount = double.Parse(DGVorder.Rows[this.rowIndex].Cells[8].Value.ToString());
-
+                double unitPrice = double.Parse(UnitPriceTxtBox.Text.ToString());
+                int quantity = int.Parse(QuantityTxtBox.Text.ToString());
+                double discount = double.Parse(DiscountTxtBox.Text.ToString());
 
                 double total = quantity * unitPrice;
                 double netDiscount = (total / 100) * discount;
                 totalTxtBox.Text = (total - netDiscount).ToString();
 
-                query = "insert into Order_details (total) values ('" + totalTxtBox.Text + "')";
+                query = "insert into Order_details (client_id,order_priority,order_category,brand,due_date,unit_price,quantity,discount,total) values ('" + clientIdTxtBox.Text + "','" + OrderPriorityTxtBox.Text + "','" + OrderCategoryDropDown.Text + "','" + brandDropDown.Text + "','" + DueDateBox.Value + "','" + UnitPriceTxtBox.Text + "','" + QuantityTxtBox.Text + "','" + DiscountTxtBox.Text + "','" + totalTxtBox.Text + "')";
                 fn.setData(query);
                 loadOrderData();
                 ClearAll();
@@ -224,7 +217,7 @@ namespace TJ_Lanka_PLC_PLM
                 String brand = DGVorder.Rows[this.rowIndex].Cells[4].Value.ToString();
                 String dueDate = DGVorder.Rows[this.rowIndex].Cells[5].Value.ToString();
                 double unitPrice = double.Parse(DGVorder.Rows[this.rowIndex].Cells[6].Value.ToString());
-                double quantity = double.Parse(DGVorder.Rows[this.rowIndex].Cells[7].Value.ToString());
+                int quantity = int.Parse(DGVorder.Rows[this.rowIndex].Cells[7].Value.ToString());
                 double discount = double.Parse(DGVorder.Rows[this.rowIndex].Cells[8].Value.ToString());
                 double total = double.Parse(DGVorder.Rows[this.rowIndex].Cells[9].Value.ToString());
 

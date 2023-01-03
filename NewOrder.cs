@@ -35,17 +35,33 @@ namespace TJ_Lanka_PLC_PLM
         }
 
 
+        public int rowIndex { get; private set; }
 
         private void NewSubmitBtn_Click(object sender, EventArgs e)
         {
             if (NewOrderPriorityTxtBox.Text != "" && NewOrderCategoryDropDown.Text != "" && NewDueDateBox.Text != "" && NewUnitPriceTxtBox.Text != "" && NewQuantityTxtBox.Text != "" && NewDiscountTxtBox.Text != "")
             {
+                double unitPrice = double.Parse(NewUnitPriceTxtBox.Text.ToString());
+                int quantity = int.Parse(NewQuantityTxtBox.Text.ToString());
+                double discount = double.Parse(NewDiscountTxtBox.Text.ToString());
 
-                query = "insert into Order_details (client_id,order_priority,order_category,brand,due_date,unit_price,quantity,discount) values ('" + NewclientIdTxtBox.Text + "','" + NewOrderPriorityTxtBox.Text + "','" + NewOrderCategoryDropDown.Text + "','" + NewbrandDropDown.Text + "','" + NewDueDateBox.Value + "','" + NewUnitPriceTxtBox.Text + "','" + NewQuantityTxtBox.Text + "','" + NewDiscountTxtBox.Text + "')";
+
+                double total = quantity * unitPrice;
+                double netDiscount = (total / 100) * discount;
+                double gTotal = (total - netDiscount);
+                double NetValue = Math.Round((double)gTotal, 2);
+                totalTxtBox.Text = "Rs. " + NetValue;
+
+                MessageBox.Show("The total of the current order is '" + totalTxtBox.Text + "'", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                query = "insert into Order_details (client_id,order_priority,order_category,brand,due_date,unit_price,quantity,discount,total) values ('" + NewclientIdTxtBox.Text + "','" + NewOrderPriorityTxtBox.Text + "','" + NewOrderCategoryDropDown.Text + "','" + NewbrandDropDown.Text + "','" + NewDueDateBox.Value + "','" + NewUnitPriceTxtBox.Text + "','" + NewQuantityTxtBox.Text + "','" + NewDiscountTxtBox.Text + "','" + totalTxtBox.Text + "')";
+
                 fn.setData(query);
+
                 loadOrderData();
                 ClearAll();
                 New(false);
+
 
                 Order_details fm = new Order_details();
                 this.Hide();
