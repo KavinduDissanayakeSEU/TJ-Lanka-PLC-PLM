@@ -56,6 +56,8 @@
             this.brandDropDown = new System.Windows.Forms.ComboBox();
             this.totalTxtBox = new System.Windows.Forms.TextBox();
             this.total = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.StatusTxtBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.DGVorder)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -255,10 +257,10 @@
             "SAXX2XIST"});
             this.searchBrand.Location = new System.Drawing.Point(41, 214);
             this.searchBrand.Name = "searchBrand";
-            this.searchBrand.Size = new System.Drawing.Size(185, 22);
+            this.searchBrand.Size = new System.Drawing.Size(144, 22);
             this.searchBrand.TabIndex = 27;
             this.searchBrand.Text = "Search By Brand";
-            this.searchBrand.SelectedIndexChanged += new System.EventHandler(this.searchBrand_SelectedIndexChanged_1);
+            this.searchBrand.SelectedIndexChanged += new System.EventHandler(this.SearchBrand_SelectedIndexChanged_1);
             // 
             // contextMenuStrip1
             // 
@@ -321,7 +323,7 @@
             // totalTxtBox
             // 
             this.totalTxtBox.Font = new System.Drawing.Font("Lucida Fax", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.totalTxtBox.Location = new System.Drawing.Point(377, 216);
+            this.totalTxtBox.Location = new System.Drawing.Point(236, 216);
             this.totalTxtBox.Name = "totalTxtBox";
             this.totalTxtBox.Size = new System.Drawing.Size(141, 20);
             this.totalTxtBox.TabIndex = 31;
@@ -330,18 +332,43 @@
             // 
             this.total.AutoSize = true;
             this.total.Font = new System.Drawing.Font("Lucida Fax", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.total.Location = new System.Drawing.Point(327, 219);
+            this.total.Location = new System.Drawing.Point(195, 219);
             this.total.Name = "total";
             this.total.Size = new System.Drawing.Size(49, 14);
             this.total.TabIndex = 32;
             this.total.Text = "Total : ";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Lucida Fax", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(409, 219);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(44, 14);
+            this.label2.TabIndex = 59;
+            this.label2.Text = "Status";
+            // 
+            // StatusTxtBox
+            // 
+            this.StatusTxtBox.Font = new System.Drawing.Font("Lucida Fax", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.StatusTxtBox.FormattingEnabled = true;
+            this.StatusTxtBox.Items.AddRange(new object[] {
+            "Active",
+            "In Progress",
+            "Inactive",
+            "Completed"});
+            this.StatusTxtBox.Location = new System.Drawing.Point(460, 214);
+            this.StatusTxtBox.Name = "StatusTxtBox";
+            this.StatusTxtBox.Size = new System.Drawing.Size(105, 22);
+            this.StatusTxtBox.TabIndex = 58;
             // 
             // Order_details
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 477);
-            this.Controls.Add(this.total);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.StatusTxtBox);
             this.Controls.Add(this.totalTxtBox);
             this.Controls.Add(this.brandDropDown);
             this.Controls.Add(this.clientIdTxtBox);
@@ -365,6 +392,7 @@
             this.Controls.Add(this.OrderCategory);
             this.Controls.Add(this.OrderPriority);
             this.Controls.Add(this.OrderDetails);
+            this.Controls.Add(this.total);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Order_details";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -407,5 +435,7 @@
         private System.Windows.Forms.ToolStripMenuItem editOrderToolStripMenuItem;
         private System.Windows.Forms.TextBox totalTxtBox;
         private System.Windows.Forms.Label total;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox StatusTxtBox;
     }
 }

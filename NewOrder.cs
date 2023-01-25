@@ -13,21 +13,21 @@ namespace TJ_Lanka_PLC_PLM
             InitializeComponent();
         }
 
-        public void loadOrderData()
+        public void LoadOrderData()
         {
             query = "select * from Order_details";
             DataSet ds = fn.getData(query);
             NewOrderDGV.DataSource = ds.Tables[0];
         }
 
-        public void loadCid()
+        public void LoadCid()
         {
             query = "select * from (select top 1 * from client_details order by [client_id] DESC) last";
             DataSet ds = fn.getData(query);
             NewclientIdTxtBox.Text = ds.Tables[0].Rows[0]["client_id"].ToString();
         }
 
-        public void loadBrand()
+        public void LoadBrand()
         {
             query = "select * from (select top 1 * from client_details order by [client_id] DESC) last";
             DataSet ds = fn.getData(query);
@@ -39,7 +39,7 @@ namespace TJ_Lanka_PLC_PLM
 
         private void NewSubmitBtn_Click(object sender, EventArgs e)
         {
-            if (NewOrderPriorityTxtBox.Text != "" && NewOrderCategoryDropDown.Text != "" && NewDueDateBox.Text != "" && NewUnitPriceTxtBox.Text != "" && NewQuantityTxtBox.Text != "" && NewDiscountTxtBox.Text != "")
+            if (NewOrderPriorityTxtBox.Text != "" && NewOrderCategoryDropDown.Text != "" && NewDueDateBox.Text != "" && NewUnitPriceTxtBox.Text != "" && NewQuantityTxtBox.Text != "" && NewDiscountTxtBox.Text != "" && NewStatusTxtBox.Text != "")
             {
                 double unitPrice = double.Parse(NewUnitPriceTxtBox.Text.ToString());
                 int quantity = int.Parse(NewQuantityTxtBox.Text.ToString());
@@ -54,11 +54,11 @@ namespace TJ_Lanka_PLC_PLM
 
                 MessageBox.Show("The total of the current order is '" + totalTxtBox.Text + "'", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                query = "insert into Order_details (client_id,order_priority,order_category,brand,due_date,unit_price,quantity,discount,total) values ('" + NewclientIdTxtBox.Text + "','" + NewOrderPriorityTxtBox.Text + "','" + NewOrderCategoryDropDown.Text + "','" + NewbrandDropDown.Text + "','" + NewDueDateBox.Value + "','" + NewUnitPriceTxtBox.Text + "','" + NewQuantityTxtBox.Text + "','" + NewDiscountTxtBox.Text + "','" + totalTxtBox.Text + "')";
+                query = "insert into Order_details (client_id,order_priority,order_category,brand,due_date,unit_price,quantity,discount,total,status) values ('" + NewclientIdTxtBox.Text + "','" + NewOrderPriorityTxtBox.Text + "','" + NewOrderCategoryDropDown.Text + "','" + NewbrandDropDown.Text + "','" + NewDueDateBox.Value + "','" + NewUnitPriceTxtBox.Text + "','" + NewQuantityTxtBox.Text + "','" + NewDiscountTxtBox.Text + "','" + totalTxtBox.Text + "', '" + NewStatusTxtBox.Text + "')";
 
                 fn.setData(query);
 
-                loadOrderData();
+                LoadOrderData();
                 ClearAll();
                 New(false);
 
@@ -84,6 +84,7 @@ namespace TJ_Lanka_PLC_PLM
             NewUnitPriceTxtBox.Clear();
             NewQuantityTxtBox.Clear();
             NewDiscountTxtBox.Clear();
+            NewStatusTxtBox.ResetText();
 
         }
 
@@ -97,13 +98,14 @@ namespace TJ_Lanka_PLC_PLM
             NewUnitPriceTxtBox.Enabled = value;
             NewQuantityTxtBox.Enabled = value;
             NewDiscountTxtBox.Enabled = value;
+            NewStatusTxtBox.Enabled = value;
         }
 
         private void NewOrder_Load(object sender, EventArgs e)
         {
-            loadOrderData();
-            loadCid();
-            loadBrand();
+            LoadOrderData();
+            LoadCid();
+            LoadBrand();
         }
 
         private void ResetBtn_Click(object sender, EventArgs e)
@@ -114,6 +116,7 @@ namespace TJ_Lanka_PLC_PLM
             NewUnitPriceTxtBox.Clear();
             NewQuantityTxtBox.Clear();
             NewDiscountTxtBox.Clear();
+            NewStatusTxtBox.ResetText();
         }
     }
 }

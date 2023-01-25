@@ -50,6 +50,8 @@
             this.ResetBtn = new System.Windows.Forms.Button();
             this.total = new System.Windows.Forms.Label();
             this.totalTxtBox = new System.Windows.Forms.TextBox();
+            this.NewStatusTxtBox = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.NewOrderDGV)).BeginInit();
             this.SuspendLayout();
             // 
@@ -260,7 +262,7 @@
             // 
             this.total.AutoSize = true;
             this.total.Font = new System.Drawing.Font("Lucida Fax", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.total.Location = new System.Drawing.Point(330, 221);
+            this.total.Location = new System.Drawing.Point(195, 221);
             this.total.Name = "total";
             this.total.Size = new System.Drawing.Size(49, 14);
             this.total.TabIndex = 55;
@@ -269,17 +271,42 @@
             // totalTxtBox
             // 
             this.totalTxtBox.Font = new System.Drawing.Font("Lucida Fax", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.totalTxtBox.Location = new System.Drawing.Point(381, 218);
+            this.totalTxtBox.Location = new System.Drawing.Point(238, 218);
             this.totalTxtBox.Name = "totalTxtBox";
             this.totalTxtBox.Size = new System.Drawing.Size(141, 20);
             this.totalTxtBox.TabIndex = 54;
+            // 
+            // NewStatusTxtBox
+            // 
+            this.NewStatusTxtBox.Font = new System.Drawing.Font("Lucida Fax", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NewStatusTxtBox.FormattingEnabled = true;
+            this.NewStatusTxtBox.Items.AddRange(new object[] {
+            "Active",
+            "In Progress",
+            "Inactive",
+            "Completed"});
+            this.NewStatusTxtBox.Location = new System.Drawing.Point(460, 216);
+            this.NewStatusTxtBox.Name = "NewStatusTxtBox";
+            this.NewStatusTxtBox.Size = new System.Drawing.Size(105, 22);
+            this.NewStatusTxtBox.TabIndex = 56;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Lucida Fax", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(409, 221);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(44, 14);
+            this.label2.TabIndex = 57;
+            this.label2.Text = "Status";
             // 
             // NewOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 477);
-            this.Controls.Add(this.total);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.NewStatusTxtBox);
             this.Controls.Add(this.totalTxtBox);
             this.Controls.Add(this.ResetBtn);
             this.Controls.Add(this.NewOrderDGV);
@@ -301,6 +328,7 @@
             this.Controls.Add(this.OrderCategory);
             this.Controls.Add(this.OrderPriority);
             this.Controls.Add(this.OrderDetails);
+            this.Controls.Add(this.total);
             this.Font = new System.Drawing.Font("Lucida Fax", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -338,5 +366,7 @@
         private System.Windows.Forms.Button ResetBtn;
         private System.Windows.Forms.Label total;
         private System.Windows.Forms.TextBox totalTxtBox;
+        private System.Windows.Forms.ComboBox NewStatusTxtBox;
+        private System.Windows.Forms.Label label2;
     }
 }
