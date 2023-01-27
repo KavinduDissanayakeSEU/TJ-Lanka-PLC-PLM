@@ -53,6 +53,11 @@ namespace TJ_Lanka_PLC_PLM
                 loadOrderData();
                 ClearAll();
 
+                Int64 Quantity = Int64.Parse(UnitPriceTxtBox.Text);
+                Int64 UnitPrice = Int64.Parse(UnitPriceTxtBox.Text);
+                float Discount = float.Parse(DiscountTxtBox.Text);
+                totalTxtBox.Text = ((Quantity * UnitPrice) * (Discount * 100)).ToString();
+
                 New(false);
                 SubmitButton(false);
                 UpdateButton(false);
@@ -216,10 +221,9 @@ namespace TJ_Lanka_PLC_PLM
                 String orderCategory = DGVorder.Rows[this.rowIndex].Cells[3].Value.ToString();
                 String brand = DGVorder.Rows[this.rowIndex].Cells[4].Value.ToString();
                 String dueDate = DGVorder.Rows[this.rowIndex].Cells[5].Value.ToString();
-                double unitPrice = double.Parse(DGVorder.Rows[this.rowIndex].Cells[6].Value.ToString());
+                int unitPrice = int.Parse(DGVorder.Rows[this.rowIndex].Cells[6].Value.ToString());
                 int quantity = int.Parse(DGVorder.Rows[this.rowIndex].Cells[7].Value.ToString());
-                double discount = double.Parse(DGVorder.Rows[this.rowIndex].Cells[8].Value.ToString());
-                double total = double.Parse(DGVorder.Rows[this.rowIndex].Cells[9].Value.ToString());
+                float discount = float.Parse(DGVorder.Rows[this.rowIndex].Cells[8].Value.ToString());
 
                 clientIdTxtBox.Text = clientID.ToString();
                 brandDropDown.Text = brand;

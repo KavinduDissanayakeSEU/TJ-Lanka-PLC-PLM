@@ -260,7 +260,6 @@
             this.searchBrand.Size = new System.Drawing.Size(144, 22);
             this.searchBrand.TabIndex = 27;
             this.searchBrand.Text = "Search By Brand";
-            this.searchBrand.SelectedIndexChanged += new System.EventHandler(this.SearchBrand_SelectedIndexChanged_1);
             // 
             // contextMenuStrip1
             // 
