@@ -11,7 +11,7 @@ namespace TJ_Lanka_PLC_PLM
         {
             //this is the connection for the database
             SqlConnection con = new SqlConnection();
-            con.ConnectionString = (@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=""C:\Users\kavindud\Pictures\Back up projects\TJ Lanka PLC PLM\MarketingDB.mdf"";Integrated Security=True");
+            con.ConnectionString = (@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\kavindud\source\repos\TJ-Lanka-PLM\MarketingDBS.mdf;Integrated Security=True");
             return con;
 
         }

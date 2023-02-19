@@ -48,7 +48,7 @@ namespace TJ_Lanka_PLC_PLM
                 double netDiscount = (total / 100) * discount;
                 totalTxtBox.Text = (total - netDiscount).ToString();
 
-                query = "insert into Order_details (client_id,order_priority,order_category,brand,due_date,unit_price,quantity,discount,total) values ('" + clientIdTxtBox.Text + "','" + OrderPriorityTxtBox.Text + "','" + OrderCategoryDropDown.Text + "','" + brandDropDown.Text + "','" + DueDateBox.Value + "','" + UnitPriceTxtBox.Text + "','" + QuantityTxtBox.Text + "','" + DiscountTxtBox.Text + "','" + totalTxtBox.Text + "')";
+                query = "insert into Order_details (client_id,order_priority,order_category,brand,due_date,unit_price,quantity,discount,total,status) values ('" + clientIdTxtBox.Text + "','" + OrderPriorityTxtBox.Text + "','" + OrderCategoryDropDown.Text + "','" + brandDropDown.Text + "','" + DueDateBox.Value + "','" + UnitPriceTxtBox.Text + "','" + QuantityTxtBox.Text + "','" + DiscountTxtBox.Text + "','" + totalTxtBox.Text + "','" + StatusTxtBox.Text + "')";
                 fn.setData(query);
                 loadOrderData();
                 ClearAll();
@@ -77,6 +77,7 @@ namespace TJ_Lanka_PLC_PLM
             OrderPriorityTxtBox.SelectedIndex = -1;
             OrderCategoryDropDown.SelectedIndex = -1;
             DueDateBox.ResetText();
+            StatusTxtBox.ResetText();
             brandDropDown.ResetText();
             clientIdTxtBox.Clear();
             UnitPriceTxtBox.Clear();
@@ -201,7 +202,7 @@ namespace TJ_Lanka_PLC_PLM
 
         private void btnUpdateOrder_Click(object sender, EventArgs e)
         {
-            query = "update Order_details set order_priority = '" + OrderPriorityTxtBox.Text + "', order_category = '" + OrderCategoryDropDown.Text + "', due_date = '" + DueDateBox.Text + "', unit_price = '" + UnitPriceTxtBox.Text + "', quantity= '" + QuantityTxtBox.Text + "', discount= '" + DiscountTxtBox.Text + "', total= '" + totalTxtBox.Text + "' where order_id= " + OrderId + "";
+            query = "update Order_details set order_priority = '" + OrderPriorityTxtBox.Text + "', order_category = '" + OrderCategoryDropDown.Text + "', due_date = '" + DueDateBox.Text + "', unit_price = '" + UnitPriceTxtBox.Text + "', quantity= '" + QuantityTxtBox.Text + "', discount= '" + DiscountTxtBox.Text + "', total= '" + totalTxtBox.Text + "', status= '" + StatusTxtBox.Text + "' where order_id= " + OrderId + "";
             fn.setData(query);
             loadOrderData();
             ClearAll();
@@ -224,6 +225,8 @@ namespace TJ_Lanka_PLC_PLM
                 int unitPrice = int.Parse(DGVorder.Rows[this.rowIndex].Cells[6].Value.ToString());
                 int quantity = int.Parse(DGVorder.Rows[this.rowIndex].Cells[7].Value.ToString());
                 float discount = float.Parse(DGVorder.Rows[this.rowIndex].Cells[8].Value.ToString());
+                String total = DGVorder.Rows[this.rowIndex].Cells[9].Value.ToString();
+                String status = DGVorder.Rows[this.rowIndex].Cells[10].Value.ToString();
 
                 clientIdTxtBox.Text = clientID.ToString();
                 brandDropDown.Text = brand;
@@ -235,6 +238,7 @@ namespace TJ_Lanka_PLC_PLM
                 QuantityTxtBox.Text = quantity.ToString();
                 DiscountTxtBox.Text = discount.ToString();
                 totalTxtBox.Text = total.ToString();
+                StatusTxtBox.Text = status;
 
 
                 UpdateButton(true);
