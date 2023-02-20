@@ -139,6 +139,10 @@ namespace TJ_Lanka_PLC_PLM
             searchBrand.Enabled = value;
         }
 
+        private void TotalTxtBox(bool value)
+        {
+            totalTxtBox.Enabled = value;
+        }
 
 
 
@@ -240,7 +244,7 @@ namespace TJ_Lanka_PLC_PLM
                 totalTxtBox.Text = total.ToString();
                 StatusTxtBox.Text = status;
 
-
+                TotalTxtBox(false);
                 UpdateButton(true);
                 BrandDropDown(false);
                 ClientID(false);
